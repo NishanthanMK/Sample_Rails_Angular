@@ -13,6 +13,10 @@ visitorCenter.controller("visitorsController", function($scope, Visitor) {
   $scope.visitors = Visitor.index()
   // console.log($scope.visitors)
 
+  $scope.addNewVisitor = function() {
+    $scope.isEdit = false;
+  }
+  
   $scope.addVisitor = function() {
     $scope.isEdit = false;
     visitor = Visitor.save($scope.newVisitor, function success() {
