@@ -8,10 +8,15 @@ class VisitorsController < ApplicationController
   end
 
   def create
-    @visitor = Visitor.create(visitor_params)
+    @visitor = Visitor.new(visitor_params)
     respond_to do |format|
-      format.json { render json: @visitor, status: :created }
-      format.html
+      if @visitor.save
+        format.json { render json: @visitor, status: :created }
+        format.html
+      else
+        format.json { render json: @visitor.errors, status: :unprocessable_entity }
+        format.html
+      end
     end
   end
 

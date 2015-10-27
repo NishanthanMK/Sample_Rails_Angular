@@ -15,11 +15,13 @@ visitorCenter.controller("visitorsController", function($scope, Visitor) {
 
   $scope.addVisitor = function() {
     $scope.isEdit = false;
-    visitor = Visitor.save($scope.newVisitor)
-
-    $scope.message = "Created Successfully"
-    $scope.visitors.push(visitor)
-    $scope.newVisitor = {}
+    visitor = Visitor.save($scope.newVisitor, function success() {
+      $scope.message = "Created Successfully"
+      $scope.visitors.push(visitor)
+      $scope.newVisitor = {}
+    }, function err(e) {
+      $scope.message = e.data
+    })
   }
 
   $scope.deleteVisitor = function(index) {
